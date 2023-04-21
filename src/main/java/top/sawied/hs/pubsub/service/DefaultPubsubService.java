@@ -1,4 +1,4 @@
-package top.sawied.hs.pubsub;
+package top.sawied.hs.pubsub.service;
 
 import com.google.api.core.ApiFunction;
 import com.google.api.core.ApiService;
@@ -8,24 +8,24 @@ import com.google.api.gax.grpc.GrpcTransportChannel;
 import com.google.api.gax.grpc.InstantiatingGrpcChannelProvider;
 import com.google.api.gax.rpc.FixedTransportChannelProvider;
 import com.google.api.gax.rpc.TransportChannelProvider;
-import com.google.cloud.pubsub.v1.AckReplyConsumer;
 import com.google.cloud.pubsub.v1.MessageReceiver;
 import com.google.cloud.pubsub.v1.Subscriber;
-import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.Uninterruptibles;
 import com.google.pubsub.v1.ProjectSubscriptionName;
-import com.google.pubsub.v1.PubsubMessage;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import top.sawied.hs.pubsub.PubsubApplication;
 
 import java.time.Duration;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class DefaultPubsubService {
+public class DefaultPubsubService implements ApplicationRunner {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PubsubApplication.class);
 
@@ -44,7 +44,8 @@ public class DefaultPubsubService {
     Executor defaultExecutor=Executors.newFixedThreadPool(2);
 
 
-    public void run(){
+    public void run(ApplicationArguments args) throws Exception {
+        LOGGER.info("startup runner pubsub with args {}" ,args);
         defaultExecutor.execute(()->{
             while (true){
                 try {
@@ -89,6 +90,7 @@ public class DefaultPubsubService {
             }
 
         });
+        LOGGER.info(" runner has completed pubsub with args {}" ,args);
 
     }
 
@@ -127,6 +129,5 @@ public class DefaultPubsubService {
             }
         };
     }
-
 
 }

@@ -1,4 +1,4 @@
-package top.sawied.hs.pubsub;
+package top.sawied.hs.pubsub.service;
 
 import com.google.common.util.concurrent.Uninterruptibles;
 import org.slf4j.Logger;

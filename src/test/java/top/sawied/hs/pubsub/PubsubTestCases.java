@@ -18,6 +18,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.DefaultApplicationArguments;
+import top.sawied.hs.pubsub.service.DefaultPubsubService;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -25,8 +27,8 @@ import java.text.DateFormat;
 import java.time.Duration;
 import java.util.Date;
 
-import static top.sawied.hs.pubsub.DefaultPubsubService.projectId;
-import static top.sawied.hs.pubsub.DefaultPubsubService.subscriptionId;
+import static top.sawied.hs.pubsub.service.DefaultPubsubService.projectId;
+import static top.sawied.hs.pubsub.service.DefaultPubsubService.subscriptionId;
 
 public class PubsubTestCases {
 
@@ -76,9 +78,9 @@ public class PubsubTestCases {
 
 
     @Test
-    public void pushMessage(){
+    public void pushMessage() throws Exception {
 
-        new DefaultPubsubService().run();
+        new DefaultPubsubService().run(new DefaultApplicationArguments());
         LOGGER.info("pubsub running . trying push message ..... ");
 
         for (int i =0 ;i <10000; i++){
